@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Şekil 7 — İçerik Ekonomisi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:#EDEFF2; }
+  body{
+    font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:#16233C; -webkit-font-smoothing:antialiased;
+    padding:40px 20px; display:flex; justify-content:center;
+  }
+  .figure{
+    width:1280px; background:#FFFFFF; padding:60px 72px 44px;
+    box-shadow:0 1px 3px rgba(20,30,50,.05), 0 24px 60px rgba(20,30,50,.08);
+    border-radius:2px;
+  }
+
+  /* Header */
+  .head{ display:flex; align-items:baseline; justify-content:space-between; }
+  .head-left{ display:flex; align-items:baseline; }
+  .eyebrow{ font-size:11px; font-weight:600; letter-spacing:.28em; color:#8A94A6; text-transform:uppercase; white-space:nowrap; }
+  .rule{ width:46px; height:1px; background:#C9CFD8; align-self:center; margin:0 22px; }
+  .head-title{ font-family:"Newsreader",Georgia,serif; font-style:italic; font-weight:500; font-size:22px; color:#16233C; }
+  .head-tag{ font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:15px; color:#9AA2AE; }
+  .head-sub{ font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:15px; color:#8A94A6; margin-top:10px; }
+  .head-hr{ height:1px; background:#EEF0F3; margin:24px 0 12px; }
+
+  .sectlabel{ display:flex; align-items:baseline; justify-content:space-between; margin:16px 0 16px; }
+  .sectlabel .l{ font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#9AA2AE; }
+  .sectlabel .r{ font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:13.5px; color:#A2A9B4; }
+
+  /* Tier ladder */
+  .ladder{ display:flex; align-items:stretch; }
+  .tier{
+    flex:1 1 0; min-width:0; background:#FFFFFF; border:1px solid #E3E7EC; border-radius:14px;
+    padding:16px 17px 15px; box-shadow:0 1px 2px rgba(20,30,50,.035), 0 8px 20px rgba(20,30,50,.045);
+    position:relative;
+  }
+  .tier .tnum{ font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:13px; color:#B3BAC4; }
+  .tier .tname{ font-size:16.5px; font-weight:700; color:#16233C; margin-top:3px; letter-spacing:-.2px; }
+  .tier .twho{ font-size:9.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; margin-top:9px; }
+  .tier .tget{ font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:13px; color:#7C848F; margin-top:8px; line-height:1.4; min-height:54px; }
+  .tier .tpill{
+    display:inline-block; font-size:11px; font-weight:600; letter-spacing:.02em;
+    padding:4px 10px; border-radius:999px; margin-top:4px;
+  }
+  .tier .tcorner{ position:absolute; top:15px; right:15px; width:8px; height:8px; border-radius:50%; }
+
+  .t1 .twho{ color:#8A94A6 } .t1 .tcorner{ background:#AEB5BF } .t1 .tpill{ background:#F1F3F5; color:#6B7480 }
+  .t2 .twho{ color:#2A8F87 } .t2 .tcorner{ background:#2E9E95 } .t2 .tpill{ background:#E7F4F2; color:#237E77 }
+  .t3 .twho{ color:#C56A4E } .t3 .tcorner{ background:#D67B5E } .t3 .tpill{ background:#FBEDE7; color:#B86046 }
+  .t4{ border-color:#16233C; box-shadow:0 2px 4px rgba(20,30,50,.08), 0 14px 30px rgba(20,30,50,.10); }
+  .t4 .tnum{ color:#7E8AA0 } .t4 .tname{ color:#16233C } .t4 .twho{ color:#3D4B66 }
+  .t4 .tcorner{ background:#16233C } .t4 .tpill{ background:#16233C; color:#FFFFFF }
+
+  .lstep{ flex:0 0 44px; display:flex; align-items:center; justify-content:center; }
+  .lstep span{ position:relative; width:26px; height:1.5px; background:#C4CBD5; }
+  .lstep span:after{ content:""; position:absolute; right:-1px; top:-3.5px; width:7px; height:7px; border-top:1.5px solid #C4CBD5; border-right:1.5px solid #C4CBD5; transform:rotate(45deg); }
+
+  /* Connector from tier4 down to marketplace */
+  .downwrap{ display:flex; }
+  .downwrap .a{ flex:1 1 auto; }
+  .downwrap .b{ flex:0 0 620px; display:flex; justify-content:center; }
+  .downwrap .b .stem{ width:1.5px; height:26px; background:#D3D8E0; position:relative; }
+  .downwrap .b .stem:after{ content:"▼"; position:absolute; left:-5px; bottom:-13px; color:#C4CBD5; font-size:12px; }
+
+  /* Signature row */
+  .sig{ display:flex; align-items:flex-start; margin-top:8px; }
+  .sig .left{ flex:0 0 620px; margin-right:44px; }
+  .sig .right{ flex:1 1 auto; padding-top:4px; }
+
+  /* Marketplace app */
+  .app{ border:1px solid #E3E7EC; border-radius:18px; overflow:hidden; box-shadow:0 1px 2px rgba(20,30,50,.04), 0 14px 34px rgba(20,30,50,.07); background:#FFFFFF; }
+  .app .abar{ display:flex; align-items:center; justify-content:space-between; padding:15px 18px; border-bottom:1px solid #EEF0F3; }
+  .app .abar .title{ font-size:15px; font-weight:700; color:#16233C; }
+  .app .abar .title small{ display:block; font-weight:500; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#9AA2AE; margin-bottom:2px; }
+  .app .abar .search{ font-size:12px; color:#9AA2AE; border:1px solid #E7EAEE; border-radius:999px; padding:6px 12px; }
+  .chips{ display:flex; padding:12px 18px 4px; }
+  .chip{ font-size:11.5px; padding:5px 12px; border-radius:999px; margin-right:8px; border:1px solid #E7EAEE; color:#6B7480; }
+  .chip.on{ background:#16233C; color:#fff; border-color:#16233C; }
+
+  .tpl{ display:flex; align-items:center; padding:14px 18px; border-top:1px solid #F1F3F5; }
+  .tpl:first-of-type{ border-top:none; }
+  .thumb{ flex:0 0 92px; height:66px; border-radius:10px; margin-right:15px; padding:9px; display:flex; flex-direction:column; justify-content:center; }
+  .thumb .opt{ font-size:8.5px; font-weight:600; color:#16233C; background:#fff; border:1px solid #DCE6E4; border-radius:6px; padding:4px 6px; display:flex; align-items:center; justify-content:space-between; }
+  .thumb .opt.sel{ border-color:#2E9E95; color:#1f7d76; }
+  .thumb .opt.sel:after{ content:"✓"; color:#2E9E95; font-size:8px; }
+  .thumb .opt2{ font-size:8.5px; color:#6B7480; background:#fff; border:1px solid #E7EAEE; border-radius:6px; padding:4px 6px; margin-top:4px; }
+  .thumb .rx{ font-size:11px; letter-spacing:2px; }
+
+  .tmeta{ flex:1 1 auto; min-width:0; }
+  .tmeta .tt{ font-size:14.5px; font-weight:700; color:#16233C; }
+  .tmeta .tt .ok{ color:#2E9E95; font-size:12px; margin-left:5px; }
+  .tmeta .tc{ font-size:12px; color:#8A94A6; margin-top:2px; }
+  .tmeta .ttags{ margin-top:8px; }
+  .tmeta .tg{ font-size:10.5px; font-weight:600; letter-spacing:.02em; padding:3px 9px; border-radius:999px; margin-right:6px; }
+  .tg.free{ background:#E7F4F2; color:#237E77; }
+  .tg.paid{ background:#F4F1EA; color:#8A6D3B; }
+  .tg.ver{ background:#EEF1F5; color:#4A5568; }
+  .tprice{ flex:0 0 auto; text-align:right; margin-left:12px; }
+  .tprice .p{ font-size:15px; font-weight:700; color:#16233C; }
+  .tprice .u{ font-size:10px; color:#9AA2AE; letter-spacing:.1em; text-transform:uppercase; }
+  .tprice .use{ margin-top:8px; font-size:11px; font-weight:600; color:#fff; background:#16233C; border-radius:8px; padding:6px 11px; display:inline-block; }
+
+  .afoot{ display:flex; align-items:center; justify-content:space-between; padding:12px 18px; border-top:1px solid #EEF0F3; }
+  .afoot .more{ font-size:12px; color:#8A94A6; }
+  .afoot .tabs{ font-size:11px; color:#B3BAC4; letter-spacing:.04em; }
+  .afoot .tabs b{ color:#16233C; font-weight:600; }
+
+  /* Schema card */
+  .schema{ border:1px solid #E3E7EC; border-radius:14px; padding:18px 20px 16px; box-shadow:0 1px 2px rgba(20,30,50,.035), 0 8px 20px rgba(20,30,50,.045); }
+  .schema .slabel{ font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#9AA2AE; }
+  .schema .stitle{ font-size:16px; font-weight:700; color:#16233C; margin-top:6px; margin-bottom:12px; }
+  .tree{ font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.9; color:#3B475C; }
+  .tree .k{ color:#16233C; font-weight:500; }
+  .tree .br{ color:#C0C7D0; }
+  .tree .v{ color:#9AA2AE; font-style:normal; }
+  .tree .hl{ color:#237E77; }
+
+  .note{ display:flex; align-items:flex-start; margin-top:18px; }
+  .note .nln{ width:22px; height:1.5px; flex:0 0 22px; margin-right:14px; margin-top:7px; background:#2E9E95; }
+  .note .ntxt b{ display:block; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:600; margin-bottom:5px; color:#2A8F87; }
+  .note .ntxt span{ font-family:"Newsreader",Georgia,serif; font-style:italic; color:#7C848F; font-size:14px; line-height:1.5; display:block; }
+
+  /* legend + caption */
+  .legend{ display:flex; align-items:center; margin-top:30px; padding-top:20px; border-top:1px solid #EEF0F3; }
+  .legend .path{ font-size:13px; color:#5B6472; }
+  .legend .path .sep{ color:#B7BEC8; margin:0 9px; }
+  .legend .path b{ color:#16233C; font-weight:700; }
+  .legend .keys{ margin-left:auto; display:flex; }
+  .legend .k{ display:flex; align-items:center; font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:13px; color:#8A94A6; margin-left:24px; }
+  .legend .k i{ width:9px; height:9px; border-radius:50%; display:inline-block; margin-right:9px; }
+
+  .caption{ text-align:center; margin-top:30px; font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:14.5px; color:#98A0AC; line-height:1.55; }
+  .caption b{ color:#5B6472; font-weight:500; }
+</style>
+</head>
+<body>
+  <div class="figure">
+
+    <!-- Header -->
+    <div class="head">
+      <div class="head-left">
+        <span class="eyebrow">Şekil 07</span>
+        <span class="rule"></span>
+        <span class="head-title">Ücretsiz üretimden şablon pazarına</span>
+      </div>
+      <span class="head-tag">içerik ekonomisi</span>
+    </div>
+    <div class="head-sub">Çekirdek deneyim düşük eşikli kalır; gelir, üst üretim ve ticari kullanım katmanlarından gelir.</div>
+    <div class="head-hr"></div>
+
+    <div class="sectlabel"><span class="l">Değer merdiveni</span><span class="r">aşağı katman benimsemeyi, üst katman geliri taşır →</span></div>
+
+    <!-- Tier ladder -->
+    <div class="ladder">
+      <div class="tier t1">
+        <span class="tcorner"></span>
+        <div class="tnum">01</div>
+        <div class="tname">Ücretsiz üretim</div>
+        <div class="twho">Genel kullanıcı</div>
+        <div class="tget">Temel bloklar ve standart şablonlar; düşük eşikli üretim.</div>
+        <span class="tpill">benimseme · envanter</span>
+      </div>
+      <div class="lstep"><span></span></div>
+      <div class="tier t2">
+        <span class="tcorner"></span>
+        <div class="tnum">02</div>
+        <div class="tname">Profesyonel şablon</div>
+        <div class="twho">Creator · Ajans</div>
+        <div class="tget">Gelişmiş authoring ve premium blok/şablon araçları.</div>
+        <span class="tpill">abonelik · lisans</span>
+      </div>
+      <div class="lstep"><span></span></div>
+      <div class="tier t3">
+        <span class="tcorner"></span>
+        <div class="tnum">03</div>
+        <div class="tname">Markalı etkileşim</div>
+        <div class="twho">Marka · Reklamveren</div>
+        <div class="tget">Sponsorlu Canlı Metin ve akış-içi kampanya analitiği.</div>
+        <span class="tpill">native kampanya</span>
+      </div>
+      <div class="lstep"><span></span></div>
+      <div class="tier t4">
+        <span class="tcorner"></span>
+        <div class="tnum">04</div>
+        <div class="tname">Template marketplace</div>
+        <div class="twho">Şablon üretici · alıcı</div>
+        <div class="tget">Yeniden kullanılabilir etkileşim tasarımının satışı ve lisansı.</div>
+        <span class="tpill">gelir paylaşımı</span>
+      </div>
+    </div>
+
+    <div class="sectlabel" style="margin-top:26px"><span class="l">Prototip · Şablon pazarı</span><span class="r">satılan şey doğrulanabilir bir etkileşim tanımıdır</span></div>
+
+    <!-- Signature: marketplace prototype + schema -->
+    <div class="sig">
+      <div class="left">
+        <div class="app">
+          <div class="abar">
+            <div class="title"><small>Canlı Metin</small>Şablon Pazarı</div>
+            <div class="search">Şablon ara…</div>
+          </div>
+          <div class="chips">
+            <span class="chip on">Tümü</span>
+            <span class="chip">Spor</span>
+            <span class="chip">Mizah</span>
+            <span class="chip">Haber</span>
+            <span class="chip">Hikâye</span>
+          </div>
+
+          <div class="tpl">
+            <div class="thumb" style="background:#EAF4F2;">
+              <div class="opt sel">11'i kur</div>
+              <div class="opt2">sürükle · yerleştir</div>
+            </div>
+            <div class="tmeta">
+              <div class="tt">Kadro Kur · Maç 11'i <span class="ok">✓</span></div>
+              <div class="tc">@sporhane · schema v3</div>
+              <div class="ttags">
+                <span class="tg ver">doğrulanmış</span>
+                <span class="tg paid">lisans</span>
+              </div>
+            </div>
+            <div class="tprice"><div class="p">₺149</div><div class="u">lisans</div><span class="use">Kullan</span></div>
+          </div>
+
+          <div class="tpl">
+            <div class="thumb" style="background:#FBEEE8;">
+              <div class="opt sel">Devamı</div>
+              <div class="opt2">😂 18 · 😭 7</div>
+            </div>
+            <div class="tmeta">
+              <div class="tt">Şaka Devamı · 2 dal <span class="ok">✓</span></div>
+              <div class="tc">@mizahlab · schema v2</div>
+              <div class="ttags">
+                <span class="tg ver">doğrulanmış</span>
+                <span class="tg free">ücretsiz</span>
+              </div>
+            </div>
+            <div class="tprice"><div class="p">Ücretsiz</div><div class="u">açık</div><span class="use">Kullan</span></div>
+          </div>
+
+          <div class="afoot">
+            <span class="more">+128 doğrulanmış şablon</span>
+            <span class="tabs"><b>Keşfet</b> · Koleksiyonlar · Yüklediklerim</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="schema">
+          <div class="slabel">Template · şema</div>
+          <div class="stitle">Pazarda dolaşan nesne</div>
+          <div class="tree">
+<span class="k">Template</span><br>
+<span class="br">├─</span> <span class="k">template_id</span> <span class="v">· tpl_8f2</span><br>
+<span class="br">├─</span> <span class="k">creator</span> <span class="v">· @sporhane</span><br>
+<span class="br">├─</span> <span class="k">schema_version</span> <span class="v">· 3</span><br>
+<span class="br">├─</span> <span class="k">required_blocks</span> <span class="v">· [choice, drag]</span><br>
+<span class="br">├─</span> <span class="k">editable_fields</span> <span class="v">· 6</span><br>
+<span class="br">├─</span> <span class="k">preview</span><br>
+<span class="br">├─</span> <span class="k">license / price</span> <span class="v">· ₺149</span><br>
+<span class="br">└─</span> <span class="k">verification_status</span> <span class="hl">· ✓ verified</span>
+          </div>
+        </div>
+
+        <div class="note">
+          <span class="nln"></span>
+          <span class="ntxt"><b>İş modeli ↔ güvenlik</b><span>Satılan şey üçüncü tarafın keyfî kodu değil; platformun izin verdiği bloklardan oluşan, doğrulanabilir bir etkileşim tanımı. Böylece gelir modeli güvenlik mimarisiyle çelişmez.</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- legend + caption -->
+    <div class="legend">
+      <div class="path">Ücretsiz üretim <span class="sep">→</span> Profesyonel şablon <span class="sep">→</span> Markalı etkileşim <span class="sep">→</span> <b>Template marketplace</b></div>
+      <div class="keys">
+        <span class="k"><i style="background:#AEB5BF"></i> benimseme katmanı</span>
+        <span class="k"><i style="background:#16233C"></i> gelir katmanı</span>
+      </div>
+    </div>
+
+    <div class="caption">
+      <b>Şekil 7</b> — Temel ücretsiz üretimden profesyonel şablon, markalı etkileşim ve template marketplace'e uzanan içerik ekonomisi;<br>pazarda dolaşan nesne, doğrulanabilir bir Template şemasıdır (creator, license/price, verification_status).
+    </div>
+
+  </div>
+</body>
+</html>

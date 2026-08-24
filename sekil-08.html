@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Şekil 8 — Güvenli Deklaratif Sözleşme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233C; --ink2:#47526A; --meta:#8A94A6;
+    --teal:#2E9E95; --coral:#D67B5E; --olive:#9A9A4E;
+    --hair:#E6E9EE; --border:#E3E7EC; --bg:#FFFFFF;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ background:#EDEFF2; }
+  body{
+    font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:#16233C;
+    -webkit-font-smoothing:antialiased;
+    padding:40px 20px;
+    display:flex; justify-content:center;
+  }
+
+  .figure{
+    width:1280px;
+    background:#FFFFFF;
+    padding:60px 72px 44px;
+    box-shadow:0 1px 3px rgba(20,30,50,.05), 0 24px 60px rgba(20,30,50,.08);
+    border-radius:2px;
+  }
+
+  /* ---------- Header ---------- */
+  .head{ display:flex; align-items:baseline; justify-content:space-between; }
+  .head-left{ display:flex; align-items:baseline; gap:22px; }
+  .eyebrow{
+    font-size:11px; font-weight:600; letter-spacing:.28em; color:#8A94A6;
+    text-transform:uppercase; white-space:nowrap;
+  }
+  .rule{ width:46px; height:1px; background:#C9CFD8; align-self:center; }
+  .head-title{
+    font-family:"Newsreader",Georgia,serif; font-style:italic; font-weight:500;
+    font-size:22px; color:#16233C; letter-spacing:.1px;
+  }
+  .head-tag{
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:15px; color:#9AA2AE;
+  }
+  .head-sub{
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:15px; color:#8A94A6; margin-top:10px;
+  }
+  .head-hr{ height:1px; background:#EEF0F3; margin:26px 0 44px; }
+
+  /* ---------- Track row ---------- */
+  .track{ display:flex; align-items:stretch; margin-bottom:14px; }
+  .rail{ width:196px; flex:0 0 196px; padding-top:8px; }
+  .rail .idx{
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:15px; color:#A9B0BB;
+  }
+  .rail .rname{
+    font-size:13px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:#16233C; margin-top:2px; line-height:1.5;
+  }
+  .rail .rdesc{
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:14.5px; color:#8A94A6; margin-top:8px; line-height:1.35;
+  }
+
+  .flow{ flex:1 1 auto; display:flex; align-items:center; }
+
+  .node{
+    flex:1 1 0; min-width:0;
+    background:#FFFFFF;
+    border:1px solid #E3E7EC;
+    border-radius:14px;
+    padding:16px 18px 15px;
+    box-shadow:0 1px 2px rgba(20,30,50,.035), 0 8px 22px rgba(20,30,50,.045);
+    position:relative;
+  }
+  .node .dot{
+    width:8px; height:8px; border-radius:50%; display:inline-block;
+    vertical-align:middle; margin-right:8px;
+  }
+  .node .nlabel{
+    font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+    color:#9AA2AE; display:inline-block; vertical-align:middle;
+  }
+  .node .nterm{
+    font-size:19px; font-weight:700; color:#16233C; margin-top:11px; letter-spacing:-.1px;
+    line-height:1.15;
+  }
+  .node .ncap{
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:13.5px; color:#8A94A6; margin-top:8px; line-height:1.35;
+  }
+
+  .arrow{ flex:0 0 62px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .arrow .ln{ position:relative; width:44px; height:1.5px; background:#C4CBD5; }
+  .arrow .ln:after{
+    content:""; position:absolute; right:-1px; top:-3.5px;
+    width:8px; height:8px; border-top:1.5px solid #C4CBD5; border-right:1.5px solid #C4CBD5;
+    transform:rotate(45deg);
+  }
+  .arrow .aw{
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:11.5px; color:#AAB1BC; margin-bottom:7px; white-space:nowrap;
+  }
+
+  .note{ width:222px; flex:0 0 222px; display:flex; align-items:center; padding-left:26px; }
+  .note .nln{ width:22px; height:1.5px; flex:0 0 22px; margin-right:14px; }
+  .note .ntxt{ font-size:12px; line-height:1.5; letter-spacing:.02em; }
+  .note .ntxt b{ display:block; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; font-weight:600; margin-bottom:4px; }
+  .note .ntxt span{ font-family:"Newsreader",Georgia,serif; font-style:italic; color:#8A94A6; font-size:13px; }
+  .note.coral .nln{ background:#D67B5E; }
+  .note.coral b{ color:#C56A4E; }
+  .note.teal .nln{ background:#2E9E95; }
+  .note.teal b{ color:#2A8F87; }
+
+  /* ---------- Converge ---------- */
+  .converge{ display:flex; }
+  .converge .cspace{ width:196px; flex:0 0 196px; }
+  .converge .cmid{ flex:1 1 auto; display:flex; flex-direction:column; align-items:center; }
+  .converge .cnote{ width:222px; flex:0 0 222px; }
+  .funnel{ width:100%; height:52px; display:block; }
+  .chev{ margin-top:-6px; color:#C4CBD5; font-size:15px; line-height:1; }
+
+  /* ---------- Principle ---------- */
+  .principle{
+    display:flex;
+    border:1px solid #E3E7EC;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(20,30,50,.04), 0 12px 30px rgba(20,30,50,.06);
+    margin-top:12px;
+  }
+  .principle .accent{ width:6px; flex:0 0 6px; background:linear-gradient(180deg,#D67B5E 0%, #D67B5E 50%, #2E9E95 50%, #2E9E95 100%); }
+  .principle .pbody{ padding:24px 30px 26px; flex:1 1 auto; }
+  .principle .plabel{
+    font-size:11px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#9AA2AE;
+  }
+  .principle .ptitle{
+    font-size:24px; font-weight:700; color:#16233C; margin-top:10px; letter-spacing:-.3px;
+  }
+  .principle .ptext{
+    font-family:"Newsreader",Georgia,serif; font-size:16px; line-height:1.55; color:#47526A;
+    margin-top:10px; max-width:820px;
+  }
+  .principle .ptext em{ color:#16233C; font-style:italic; }
+
+  /* ---------- Legend ---------- */
+  .legend{ display:flex; align-items:center; gap:20px; margin-top:30px; padding-top:20px; border-top:1px solid #EEF0F3; }
+  .legend .path{ font-size:13px; color:#5B6472; letter-spacing:.01em; }
+  .legend .path b{ color:#2E9E95; font-weight:700; }
+  .legend .path .sep{ color:#B7BEC8; margin:0 8px; }
+  .legend .keys{ margin-left:auto; display:flex; }
+  .legend .k{ display:flex; align-items:center; font-family:"Newsreader",Georgia,serif; font-style:italic; font-size:13px; color:#8A94A6; margin-left:26px; }
+  .legend .k i{ width:9px; height:9px; border-radius:50%; display:inline-block; margin-right:9px; }
+
+  .caption{
+    text-align:center; margin-top:34px;
+    font-family:"Newsreader",Georgia,serif; font-style:italic;
+    font-size:14.5px; color:#98A0AC; line-height:1.55;
+  }
+  .caption b{ color:#5B6472; font-style:italic; font-weight:500; }
+</style>
+</head>
+<body>
+  <div class="figure">
+
+    <!-- Header -->
+    <div class="head">
+      <div class="head-left">
+        <span class="eyebrow">Şekil 08</span>
+        <span class="rule"></span>
+        <span class="head-title">Tek deklaratif ilke, iki paralel davranış</span>
+      </div>
+      <span class="head-tag">mimari · sözleşme</span>
+    </div>
+    <div class="head-sub">İçerik davranışı ile sosyal alan davranışı, aynı güvenli ve doğrulanabilir sözleşme mantığıyla tanımlanır.</div>
+    <div class="head-hr"></div>
+
+    <!-- Track A: Canlı Metin -->
+    <div class="track">
+      <div class="rail">
+        <div class="idx">A</div>
+        <div class="rname">Canlı Metin<br>davranışı</div>
+        <div class="rdesc">içeriğin durum ve akışı</div>
+      </div>
+      <div class="flow">
+        <div class="node">
+          <span class="dot" style="background:#D67B5E"></span><span class="nlabel">Girdi</span>
+          <div class="nterm">Schema</div>
+          <div class="ncap">deklaratif belge şeması; içerik bloklarla bildirilir</div>
+        </div>
+        <div class="arrow"><span class="aw">doğrula</span><span class="ln"></span></div>
+        <div class="node">
+          <span class="dot" style="background:#D67B5E"></span><span class="nlabel">Bileşen</span>
+          <div class="nterm">Block · Event</div>
+          <div class="ncap">izinli bloklar ve aralarındaki olay akışı</div>
+        </div>
+        <div class="arrow"><span class="aw">yürüt</span><span class="ln"></span></div>
+        <div class="node">
+          <span class="dot" style="background:#D67B5E"></span><span class="nlabel">Yürütme</span>
+          <div class="nterm">Runtime</div>
+          <div class="ncap">şemayı doğrular, render eder, olayları çalıştırır</div>
+        </div>
+      </div>
+      <div class="note coral">
+        <span class="nln"></span>
+        <span class="ntxt"><b>İçerik güvenliği</b><span>Davranış koda gömülü değil; şema doğrulamasıyla sınırlanır.</span></span>
+      </div>
+    </div>
+
+    <!-- Track B: Topluluk -->
+    <div class="track">
+      <div class="rail">
+        <div class="idx">B</div>
+        <div class="rname">Topluluk<br>davranışı</div>
+        <div class="rdesc">sosyal alanın kuralları</div>
+      </div>
+      <div class="flow">
+        <div class="node">
+          <span class="dot" style="background:#2E9E95"></span><span class="nlabel">Politika</span>
+          <div class="nterm">CommunityPolicy</div>
+          <div class="ncap">topluluğun izin ve erişim kuralları</div>
+        </div>
+        <div class="arrow"><span class="aw">çöz</span><span class="ln"></span></div>
+        <div class="node">
+          <span class="dot" style="background:#2E9E95"></span><span class="nlabel">Denetim</span>
+          <div class="nterm">Permission · Identity · Visibility</div>
+          <div class="ncap">izin, kimlik ve görünürlük ayrı katmanlar</div>
+        </div>
+        <div class="arrow"><span class="aw">yürüt</span><span class="ln"></span></div>
+        <div class="node">
+          <span class="dot" style="background:#2E9E95"></span><span class="nlabel">Yürütme</span>
+          <div class="nterm">Community Runtime</div>
+          <div class="ncap">sosyal alan davranışını politikayla çalıştırır</div>
+        </div>
+      </div>
+      <div class="note teal">
+        <span class="nln"></span>
+        <span class="ntxt"><b>Sosyal güvenlik</b><span>Türetilmiş nesneler kısıtı miras alır; policy propagation korunur.</span></span>
+      </div>
+    </div>
+
+    <!-- Converge -->
+    <div class="converge">
+      <div class="cspace"></div>
+      <div class="cmid">
+        <svg class="funnel" viewBox="0 0 800 52" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M180 2 C180 30, 400 22, 400 50" fill="none" stroke="#D3D8E0" stroke-width="1.5"/>
+          <path d="M620 2 C620 30, 400 22, 400 50" fill="none" stroke="#D3D8E0" stroke-width="1.5"/>
+        </svg>
+        <div class="chev">▼</div>
+      </div>
+      <div class="cnote"></div>
+    </div>
+
+    <!-- Principle -->
+    <div class="principle">
+      <div class="accent"></div>
+      <div class="pbody">
+        <div class="plabel">Ortak ilke</div>
+        <div class="ptitle">Güvenli, deklaratif sözleşme</div>
+        <div class="ptext">Her iki hat da davranışı koda gömmez; <em>doğrulanabilir bir sözleşmeyle bildirir.</em> İçeriğin ne yapabileceğini şema, sosyal alanın ne yapabileceğini politika belirler — ve runtime yalnızca sözleşmenin izin verdiğini yürütür.</div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="path">Şema / Politika <span class="sep">→</span> Denetimli bileşen <span class="sep">→</span> Runtime <span class="sep">→</span> <b>güvenli sözleşme</b></div>
+      <div class="keys">
+        <span class="k"><i style="background:#D67B5E"></i> içerik davranışı</span>
+        <span class="k"><i style="background:#2E9E95"></i> sosyal alan davranışı</span>
+      </div>
+    </div>
+
+    <div class="caption">
+      <b>Şekil 8</b> — Canlı Metin içerik davranışı (Schema → Block/Event → Runtime) ile Topluluk sosyal alan davranışının<br>(CommunityPolicy → Permission/Identity/Visibility → Community Runtime) aynı güvenli deklaratif sözleşme ilkesi üzerinde kurulması.
+    </div>
+
+  </div>
+</body>
+</html>
